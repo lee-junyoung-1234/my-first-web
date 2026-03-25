@@ -1,65 +1,72 @@
-import Image from "next/image";
-
 export default function Home() {
+  const posts = [
+    {
+      id: 1,
+      title: "시작하며: 블로그를 여는 글",
+      excerpt: "이 블로그는 개발과 일상, 공부 기록을 모아두는 공간입니다.",
+      date: "2026-03-25",
+    },
+    {
+      id: 2,
+      title: "Next.js App Router 사용 가이드",
+      excerpt: "App Router의 기본 구조와 권장 사용 패턴을 정리합니다.",
+      date: "2026-03-10",
+    },
+    {
+      id: 3,
+      title: "Tailwind로 빠르게 스타일링하기",
+      excerpt: "유틸리티 기반의 빠른 스타일링 팁들을 공유합니다.",
+      date: "2026-02-28",
+    },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-zinc-50 font-sans">
+      <header className="bg-white border-b">
+        <div className="mx-auto max-w-5xl px-6 py-6">
+          <h1 className="text-2xl font-bold">이준영의 블로그</h1>
+          <p className="mt-1 text-sm text-zinc-600">공공인재 · 한신대학교 · 개발·일상 기록</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      <main className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <section className="lg:col-span-2">
+          <div className="space-y-6">
+            {posts.map((post) => (
+              <article key={post.id} className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold text-black">{post.title}</h2>
+                <p className="mt-2 text-sm text-zinc-600">{post.excerpt}</p>
+                <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
+                  <span>{post.date}</span>
+                  <a href="#" className="text-blue-600 hover:underline">
+                    읽기
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside className="lg:col-span-1">
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-medium">소개</h3>
+            <p className="mt-2 text-sm text-zinc-600">이준영 · 한신대학교 · 공공인재</p>
+
+            <div className="mt-6">
+              <h4 className="text-sm font-medium">카테고리</h4>
+              <ul className="mt-2 space-y-2 text-sm text-zinc-600">
+                <li>개발</li>
+                <li>학습</li>
+                <li>일상</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </main>
+
+      <footer className="border-t mt-12">
+        <div className="mx-auto max-w-5xl px-6 py-6 text-sm text-zinc-500">© 2026 이준영</div>
+      </footer>
     </div>
   );
 }
