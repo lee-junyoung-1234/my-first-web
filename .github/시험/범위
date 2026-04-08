@@ -1,0 +1,59 @@
+### 빠른 점검
+
+아래 코드를 보고 HTML과 CSS 역할을 구분해본다.
+
+```tsx
+<article className="p-4 bg-white">
+  <h3 className="text-lg font-bold">제목</h3>
+  <p className="text-gray-600">내용</p>
+</article>
+```
+
+- HTML 역할: `article`, `h3`, `p`로 구조를 나눈다
+- CSS 역할: `p-4`, `bg-white`, `text-lg`, `font-bold`로 모양을 바꾼다
+
+이 구분이 되면 다음 실습으로 넘어갈 준비가 된 것이다.
+
+
+### layout.tsx — 공통 레이아웃
+
+`layout.tsx`는 여러 페이지에 **공통으로 적용되는 구조**(내비게이션 바, 푸터 등)를 정의한다.
+
+```tsx
+// app/layout.tsx — 모든 페이지에 적용
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ko">
+      <body>
+        <nav className="bg-gray-800 text-white p-4">
+          내 블로그 | 홈 | 블로그
+        </nav>
+        <main className="max-w-4xl mx-auto p-6">
+          {children}
+        </main>
+        <footer className="text-center text-gray-500 py-4">
+          © 2026 내 블로그
+        </footer>
+      </body>
+    </html>
+  );
+}
+```
+
+### 🤖 실습: 더미 데이터 + 목록 페이지 만들기
+
+### ① 더미 데이터 파일 생성
+
+Copilot Chat(Agent 모드)에 프롬프트를 입력한다. 간단 버전 또는 상세 버전 중 선택:
+
+**현실 버전** — 초보자가 직접 쓸 수 있는 수준:
+
+> "블로그 게시글 3개의 더미 데이터 파일을 만들어줘"
+> 
+
+**시험 버전** — 결과를 정확히 맞추고 싶을 때 (복사-붙여넣기용):
+
+> "lib/posts.ts 파일을 만들어줘. 게시글 3개의 더미 데이터 배열을 export해줘.
+각 게시글은 id(number), title(string), content(string), author(string), date(string) 포함.
+TypeScript 타입(Post)도 함께 export."
+>시험 버전 시험 범위!!
