@@ -1,10 +1,25 @@
 
 AGENTS.md를 참조한다
 
+## Tech Stack
+
+- Next.js 16.2.1 (App Router only)
+- React 19.2.4
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui (components/ui/ 경로에 설치됨)
+
+## Coding Conventions
+
+- Default to Server Components unless a Client Component is required.
+- Use Tailwind CSS for styling.
+- Keep components simple and easy to verify.
+- Prefer files inside `app/` for routes.
+
 ## Design Tokens
 
 - Core tokens (define in `app/globals.css` as CSS variables):
-  - `--primary`: main brand HSL (or space-separated H S% L% as project uses)
+  - `--primary`: main brand HSL (space-separated: H S% L%)
   - `--primary-foreground`: text color to use on `--primary`
   - `--background`, `--foreground`
   - `--card`, `--card-foreground`
@@ -12,7 +27,7 @@ AGENTS.md를 참조한다
   - `--radius`, `--radius-md`, `--radius-lg`
 
 - Usage guidance:
-  - Prefer semantic tokens in component styles (e.g., use `bg-[color:var(--card)]` or Tailwind plugin mapping).
+  - Prefer semantic tokens in component styles (e.g., use `bg-[color:var(--card)]`).
   - Keep tokens neutral — change tokens for theming instead of changing component CSS.
   - Define both light and `.dark` theme values in `app/globals.css`.
 

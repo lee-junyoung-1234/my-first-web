@@ -1,3 +1,81 @@
+# ARCHITECTURE — my-first-web
+
+## Project Goal
+
+Personal blog for reading and writing posts. Readers can browse posts; authenticated users can create, edit, and manage their posts.
+
+## Tech Stack (summary)
+
+- Next.js (App Router)
+- React + TypeScript
+- Tailwind CSS 4
+- shadcn/ui components in `components/ui/`
+- Supabase (planned) for Auth, Database, Storage
+
+## Page Map (App Router URLs)
+
+```
+/               → 홈 (포스트 목록)           (app/page.tsx)
+/posts          → 포스트 목록               (app/posts/page.tsx)
+/posts/new      → 포스트 작성               (app/posts/new/page.tsx)
+/posts/[id]     → 포스트 상세               (app/posts/[id]/page.tsx)
+/login          → 로그인                    (app/login/page.tsx)
+/signup         → 회원가입                  (app/signup/page.tsx)
+/mypage         → 마이페이지                (app/mypage/page.tsx)
+```
+
+## User Flows
+
+- Read a post: Home → Post list → Post detail
+- Write a post: Home → Posts → New → (if not logged in → Login) → New → Submit → Post detail
+- Manage account: Login/Signup → Mypage → Edit profile
+
+## Component Hierarchy (shadcn/ui focused)
+
+- `app/layout.tsx` — Root layout (Header, Footer)
+- `components/Header.tsx` — Nav, search bar, auth buttons (shadcn Button, Input)
+- `components/PostCard.tsx` — Uses shadcn `Card` to display title, excerpt, meta, and action buttons
+- `app/posts/page.tsx` — Composes `PostCard` list; uses `Card` and `Button`
+- `app/posts/new/page.tsx` — Form using shadcn `Input`, `Textarea`, and `Button`
+- `components/ConfirmDialog.tsx` — shadcn `Dialog` used for destructive actions
+
+Component usage notes:
+- Use `Card` for list items and author's card blocks.
+- Use `Button` variants for primary/secondary actions following design tokens.
+- Inputs and forms default to server components where possible; add `"use client"` only for local form state/validation.
+
+## Data Model (Supabase-ready)
+
+Tables (minimum):
+
+1) `profiles` (사용자 프로필)
+
+```
+profiles
+├── id: uuid PRIMARY KEY (references auth.users)
+├── username: text
+├── avatar_url: text
+└── created_at: timestamptz
+```
+
+2) `posts` (포스트)
+
+```
+posts
+├── id: uuid PRIMARY KEY
+├── user_id: uuid REFERENCES profiles(id)  -- author
+├── title: text
+├── content: text
+├── published: boolean DEFAULT false
+└── created_at: timestamptz
+```
+
+Relationship: `profiles` 1 - N `posts` via `posts.user_id`.
+
+## TODO / Future details
+
+- TODO: Component props and folder structure (add after shadcn/ui install)
+- TODO: API routes and Supabase table creation SQL (Ch8)
 Blog Architecture (Enhanced)
 
 Purpose
