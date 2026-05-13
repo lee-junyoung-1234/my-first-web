@@ -1,0 +1,8 @@
+# supabase/config.toml backup
+# only partial content saved for backup purposes
+project_id = "my-first-web"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]

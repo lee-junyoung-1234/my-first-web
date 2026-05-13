@@ -1,16 +1,6 @@
-"use client";
+// Starter placeholder for Chapter 8 exercise
+// Run the chapter steps to recreate this file using Copilot guidance.
 
-import { createBrowserClient } from "@supabase/ssr";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables"
-  );
-}
-
-export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
+export const supabase = null;
 
 export default supabase;

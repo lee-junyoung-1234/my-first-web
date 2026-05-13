@@ -15,4 +15,3 @@ create table posts (
   content text not null,
   created_at timestamptz default now()
 );
--- NOTE: migration preserved in backup; keep file minimal for starter state

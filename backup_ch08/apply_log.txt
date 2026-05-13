@@ -1,0 +1,16 @@
+Backup and reset log
+Files backed up:
+- lib/supabase/client.ts -> backup_ch08/lib_supabase_client.ts
+- .env.local -> backup_ch08/.env.local
+- supabase/config.toml -> backup_ch08/supabase_config.toml
+- supabase/migrations/* -> backup_ch08/migrations_*.sql
+- superbase/.env.local -> backup_ch08/superbase_env.local
+
+Files modified or removed:
+- lib/supabase/client.ts replaced with placeholder
+- .env.local redacted
+- supabase/migrations/20260509065107_create_tables.sql removed
+- supabase/migrations/20260504045526_create_tables.sql trimmed
+- superbase/.env.local redacted
+
+To restore, copy from backup_ch08/ to original locations.

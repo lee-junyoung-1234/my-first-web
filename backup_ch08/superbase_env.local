@@ -1,0 +1,6 @@
+# .env.local backup
+NEXT_PUBLIC_SUPABASE_URL=https://프로젝트참조ID.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+
+anon         | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2cWJka3FoYXBxd2Vpa3V2c3RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NjIyMDYsImV4cCI6MjA5MzQzODIwNn0.9GkliWLkP3DkPOnb5fLJW4-UTzgsi4ns8-gM1lh3gX8            
+service_role | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2cWJka3FoYXBxd2Vpa3V2c3RrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Nzg2MjIwNiwiZXhwIjoyMDkzNDM4MjA2fQ.zwVk3NyB7wAn5pvEgYRXG71UqZltTlfcAPtk-EN1HrI
