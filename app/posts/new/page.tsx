@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function NewPostPage() {
+  const { user } = useAuth();
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (user === null) {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,11 +33,12 @@ export default function NewPostPage() {
 
       router.push("/posts");
     } catch (err) {
-      // keep it simple for now
       alert("저장에 실패했습니다.");
       setSaving(false);
     }
   };
+
+  if (!user) return <div>로그인 중 또는 리다이렉트 중...</div>;
 
   return (
     <div className="max-w-3xl mx-auto py-12 px-4">
