@@ -1,19 +1,14 @@
 "use client";
 
-// For local build and test we provide a minimal mock supabase client so the
-// app can compile without a real Supabase configuration. Replace with a live
-// client (createBrowserClient) when real NEXT_PUBLIC_SUPABASE_URL and
-// NEXT_PUBLIC_SUPABASE_ANON_KEY are available during development or deployment.
+import { createBrowserClient } from "@supabase/ssr";
 
-const supabase = {
-	auth: {
-		getUser: async () => ({ data: { user: null } }),
-		onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-		signInWithPassword: async () => ({ error: { message: "Supabase not configured" } }),
-		signUp: async () => ({ error: { message: "Supabase not configured" } }),
-		signOut: async () => ({ error: { message: "Supabase not configured" } }),
-	},
-};
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-export { supabase };
+if (!supabaseUrl || !supabaseAnonKey) {
+	console.warn("Supabase env vars not set — ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are configured.");
+}
+
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
+
 export default supabase;
