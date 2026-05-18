@@ -4,6 +4,16 @@
 
 Personal blog for reading and writing posts. Readers can browse posts; authenticated users can create, edit, and manage their posts.
 
+Ch10 notes:
+
+- Ch10 목적: 게시글 CRUD(목록, 상세, 작성, 수정, 삭제)를 App Router 기반으로 연결한다.
+- Supabase 클라이언트는 `lib/supabase/client.ts`를 기본으로 사용한다.
+- 인증 상태는 `components/AuthProvider.tsx`와 `useAuth()` 훅을 재사용한다.
+- `posts` 테이블의 컬럼명(`id`, `user_id`, `title`, `content`, `created_at`)은 Ch8 스키마를 그대로 따른다. 컬럼명 임의 변경 금지.
+- App Router만 사용하고 `next/router` 사용을 금지한다.
+- 수정/삭제 UI는 UX 차원에서만 제어하며 실제 권한 검증(RLS)은 Ch11에서 적용한다.
+
+
 ## Tech Stack (summary)
 
 - Next.js (App Router)

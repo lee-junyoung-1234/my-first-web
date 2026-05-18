@@ -1,12 +1,11 @@
-import Link from "next/link";
-import PostActions from "@/app/components/PostActions";
 import { notFound } from "next/navigation";
+import PostForm from "@/app/components/PostForm";
 
 type Props = {
   params: { id: string };
 };
 
-export default async function Page({ params }: Props) {
+export default async function EditPage({ params }: Props) {
   const { id } = params;
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,30 +31,24 @@ export default async function Page({ params }: Props) {
   });
 
   if (!res.ok) {
-    console.error("Failed to fetch post", await res.text());
+    console.error("Failed to fetch post for edit", await res.text());
     notFound();
   }
 
   const data = await res.json();
   const post = Array.isArray(data) && data.length ? data[0] : null;
-
   if (!post) return notFound();
 
+  // render client PostForm in edit mode with initial values
   return (
     <main className="min-h-screen p-6 flex items-start justify-center bg-slate-50 dark:bg-slate-900">
-      <article className="max-w-3xl w-full bg-white dark:bg-slate-800 rounded-lg shadow p-8">
-        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-        <div className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-          <span>{post.user_id}</span>
-          <span className="mx-2">•</span>
-          <time dateTime={post.created_at}>{post.created_at}</time>
-        </div>
-        <div className="prose prose-slate dark:prose-invert mb-6">{post.content}</div>
-        {/* Actions (edit/delete) shown only if current user is author - client component */}
-        {/* @ts-ignore */}
-        <PostActions id={post.id} user_id={post.user_id} />
-        <Link href="/posts" className="inline-block mt-4 text-sm text-blue-600 hover:underline">← 목록으로 돌아가기</Link>
-      </article>
+      <div className="max-w-4xl w-full">
+        <h1 className="text-2xl font-bold mb-4">게시글 수정</h1>
+        {/* PostForm is a client component; pass initialValues for edit */}
+        {/* initialValues must match Ch8 schema: id, title, content, user_id, created_at */}
+        {/* @ts-ignore server -> client prop */}
+        <PostForm mode="edit" initialValues={post} />
+      </div>
     </main>
   );
 }

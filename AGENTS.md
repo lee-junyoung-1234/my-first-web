@@ -33,3 +33,11 @@
 - Do not use `next/router`; use `next/navigation` when navigation is needed.
 - Do not create `pages/` router files; this project uses the App Router.
 - Do not add `"use client"` unless interactivity or browser APIs are actually needed.
+
+## Ch10 규칙(게시글 CRUD)
+
+- Ch7·Ch8 교재 기준 패키지를 우선 참조하되, 실제 `package.json`의 버전이 더 최신이면 함께 표기한다.
+- Supabase 클라이언트는 `lib/supabase/client.ts`를 사용한다. 브라우저/클라이언트 호출은 이 파일을 재사용할 것.
+- 인증 상태는 `components/AuthProvider.tsx`와 `useAuth()` 훅을 사용한다.
+- `posts` 스키마 컬럼명(`id`, `user_id`, `title`, `content`, `created_at`)을 변경하지 말 것.
+- 수정/삭제 UI는 UX 제어만 담당한다. 권한 검증/행 수준 보안(RLS)은 Ch11에서 처리한다.

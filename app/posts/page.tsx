@@ -1,27 +1,12 @@
-import PostsClient from "@/app/components/PostsClient";
+"use client";
 
-type PostShape = {
-  id: number | string;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-};
+import dynamic from "next/dynamic";
 
-async function fetchPosts(): Promise<PostShape[]> {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=20");
-  const data = await res.json();
-  return data.map((p: any) => ({
-    id: p.id,
-    title: p.title,
-    content: p.body,
-    author: `User ${p.userId}`,
-    date: new Date().toISOString(),
-  }));
-}
+const PostsClient = dynamic(() => import("@/app/components/PostsClient"), {
+  ssr: false,
+  loading: () => <div className="max-w-4xl mx-auto p-6">로딩 중...</div>,
+});
 
-export default async function PostsPage() {
-  const initialPosts = await fetchPosts();
-
-  return <PostsClient initialPosts={initialPosts} />;
+export default function PostsPage() {
+  return <PostsClient />;
 }

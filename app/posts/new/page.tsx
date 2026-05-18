@@ -21,19 +21,24 @@ export default function NewPostPage() {
     e.preventDefault();
     setSaving(true);
     try {
+      const body = { title, content, user_id: user?.id };
       const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify(body),
       });
 
       if (!res.ok) {
-        throw new Error("저장 실패");
+        const txt = await res.text();
+        throw new Error(txt || "저장 실패");
       }
 
-      router.push("/posts");
+      const data = await res.json();
+      const createdId = data?.post?.id;
+      if (createdId) router.push(`/posts/${createdId}`);
+      else router.push("/posts");
     } catch (err) {
-      alert("저장에 실패했습니다.");
+      alert((err as any)?.message || "저장에 실패했습니다.");
       setSaving(false);
     }
   };
