@@ -16,10 +16,10 @@ export default function HeaderAuth() {
 
   if (!user) {
     return (
-      <>
+      <div className="space-x-4">
         <Link href="/login" className="text-gray-200 hover:underline">로그인</Link>
-        <Link href="/signup" className="text-gray-200 hover:underline">회원가입</Link>
-      </>
+        <Link href="/signup" className="text-gray-200 hover:underline px-3 py-1 bg-blue-600 rounded-md hover:no-underline hover:bg-blue-700 transition">회원가입</Link>
+      </div>
     );
   }
 
