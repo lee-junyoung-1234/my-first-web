@@ -66,7 +66,8 @@ export default function PostForm({ mode = "create", initialValues = null, onCrea
           return;
         }
 
-        // basic client-side ownership check
+        // UX 제어용 클라이언트 체크 — 보안이 아님
+        // 실제 권한 검증(행 수준 보안, RLS)은 Ch11에서 처리합니다.
         if (initialValues?.user_id && initialValues.user_id !== user.id) {
           setError("이 글을 수정할 권한이 없습니다.");
           return;
@@ -93,7 +94,7 @@ export default function PostForm({ mode = "create", initialValues = null, onCrea
     }
   }
 
-  // If edit mode and initialValues provided but user is not owner, show message
+  // UX 용도: 작성자가 아닌 경우 수정 버튼 비활성화 (보안이 아닌 UX 제어)
   const notOwner = isEdit && initialValues?.user_id && user?.id && initialValues.user_id !== user.id;
 
   return (

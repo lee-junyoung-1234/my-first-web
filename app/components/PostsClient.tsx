@@ -76,7 +76,17 @@ export default function PostsClient() {
   }
 
   function performServerDelete(id: string) {
-    return fetch(`/api/posts/${id}`, { method: "DELETE" });
+    return (async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        const token = (session as any)?.access_token;
+        return fetch(`/api/posts/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+      } catch (e) {
+        return fetch(`/api/posts/${id}`, { method: "DELETE" });
+      }
+    })();
   }
 
   function handleUndo() {

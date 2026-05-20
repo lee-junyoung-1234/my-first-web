@@ -41,3 +41,4 @@
 - 인증 상태는 `components/AuthProvider.tsx`와 `useAuth()` 훅을 사용한다.
 - `posts` 스키마 컬럼명(`id`, `user_id`, `title`, `content`, `created_at`)을 변경하지 말 것.
 - 수정/삭제 UI는 UX 제어만 담당한다. 권한 검증/행 수준 보안(RLS)은 Ch11에서 처리한다.
+- `service_role` 키는 서버 전용 키이므로 브라우저 등 클라이언트(또는 클라이언트 번들에 포함되는 곳)에서 절대 사용하지 않는다.

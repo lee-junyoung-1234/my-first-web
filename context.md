@@ -3,11 +3,26 @@
 ## 현재 상태
 
 - 마지막 작업일: 2026-05-09
-- 완료된 작업: 기본 앱 구조 (Ch1~6), 홈/포스트 목록 페이지, 기본 레이아웃
-- 진행 중: ARCHITECTURE.md 보강, shadcn/ui 테마 적용
-- 완료/연결됨: Ch8 Supabase 클라이언트(`lib/supabase/client.ts`) 추가, Ch9 인증 `AuthProvider`/`useAuth` 구현
+- 완료된 작업: 기본 앱 구조 (Ch1~6), 홈/포스트 목록 페이지, 기본 레이아웃, 포스트 CRUD (Ch10)
+- 진행 중: RLS 설정 (Ch11에서 진행)
+- 완료/연결됨: Ch8 Supabase 클라이언트(`lib/supabase/client.ts`), Ch9 인증 `AuthProvider`/`useAuth` 구현, Ch10 게시글 CRUD 완성
 
-- 미착수: RLS 설정 (Ch11에서 진행)
+## Ch10 구현 요약 (게시글 CRUD)
+
+- **상태:** 구현 완료 및 빌드 테스트 통과
+- **생성/수정 주요 파일:**
+  - `app/posts/page.tsx` & `app/components/PostsClient.tsx`: 게시글 목록, 검색 필터링
+  - `app/posts/[id]/page.tsx`: 게시글 상세 보기 (서버 컴포넌트 데이터 페칭)
+  - `app/posts/new/page.tsx`: 게시글 작성 페이지 (클라이언트)
+  - `app/components/PostForm.tsx`: 작성 및 수정 공통 폼
+  - `app/components/PostActions.tsx`: 작성자 전용 수정 및 삭제 버튼 제공
+  - `app/api/posts/route.ts` & `app/api/posts/[id]/route.js`: POST, PATCH, DELETE 처리를 위한 보안 핸들러 (JWT 검증 등)
+- **Supabase 쿼리 패턴:**
+  - SELECT: `supabase.from('posts').select(...)` 또는 `/rest/v1/posts?select=...` REST API 사용
+  - INSERT: `/api/posts` 등에서 JWT 인증 하에 수행
+  - UPDATE: `PostActions.tsx` (or API route)에서 `.update(...).eq('id', id)` 처리
+  - DELETE: `.delete().eq('id', id)`
+- **작성자 UI 분기:** `user?.id === post.user_id`를 판별하여 수정/삭제 폼을 표시합니다. 이는 **UX 처리**이며, **실제 데이터 보안(방어)은 Ch11의 RLS(행 수준 보안)** 에서 이루어집니다.
 
 ## 기술 결정 사항
 

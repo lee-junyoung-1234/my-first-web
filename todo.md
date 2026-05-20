@@ -11,18 +11,22 @@
 ## 2단계: 핵심 기능 (Ch8~9)
 - [x] Supabase 프로젝트 설정 및 `profiles`, `posts` 테이블 생성 (마이그레이션은 별도)
 - [x] 포스트 목록 페이지 데이터 연결 (read 연결 필요 확인)
-- [x] 포스트 상세 페이지 구현 (기본 서버 렌더링 구성)
-- [x] 포스트 작성(Create) 및 편집(Edit) — UI 스켈레톤 준비, 연결 필요
-- [x] 인증(Login/Signup) 연결 (Supabase Auth) — `components/AuthProvider.tsx` 구현
-
 ## 3단계: 고급 기능 (Ch10~12)
-- [ ] Ch10 게시글 CRUD: `app/posts`, `app/posts/[id]`, `app/posts/new`, 편집/삭제 UI
+- [x] Ch10 게시글 CRUD:
+  - [x] 게시글 목록 (`app/posts`)
+  - [x] 게시글 상세 (`app/posts/[id]`)
+  - [x] 게시글 작성 (`app/posts/new`)
+  - [x] 게시글 수정 (`app/components/PostForm.tsx`)
+  - [x] 게시글 삭제 (`app/components/PostActions.tsx`)
+  - [x] 빌드/배포 검증 (`npm run build` 통과)
 - [ ] 마이페이지 및 프로필 편집
 - [ ] 댓글 기능
 - [ ] RLS(행 수준 보안) 정책 적용 (Ch11)
 
 ## 진행률
 - 단계 1: 3/6
+- 단계 2: 5/5
+- 단계 3: 1/4 (Ch10 완료)
 Project TODO (end-to-end for Ch8~12)
 
 Completed

@@ -52,8 +52,7 @@ export default async function Page({ params }: Props) {
         </div>
         <div className="prose prose-slate dark:prose-invert mb-6">{post.content}</div>
         {/* Actions (edit/delete) shown only if current user is author - client component */}
-        {/* @ts-ignore */}
-        <PostActions id={post.id} user_id={post.user_id} />
+        <PostActions id={post.id} user_id={post.user_id} title={post.title} content={post.content} />
         <Link href="/posts" className="inline-block mt-4 text-sm text-blue-600 hover:underline">← 목록으로 돌아가기</Link>
       </article>
     </main>

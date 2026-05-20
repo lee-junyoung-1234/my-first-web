@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
+import supabase from "@/lib/supabase/client";
 
 export default function NewPostPage() {
   const { user } = useAuth();
@@ -10,6 +11,8 @@ export default function NewPostPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{ title?: string; content?: string }>({});
 
   useEffect(() => {
     if (user === null) {
@@ -20,11 +23,30 @@ export default function NewPostPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError(null);
+    setFieldErrors({});
+
+    const t = title.trim();
+    const c = content.trim();
+    const errs: { title?: string; content?: string } = {};
+    if (t.length < 3) errs.title = "제목은 최소 3자 이상 입력하세요.";
+    if (t.length > 200) errs.title = "제목은 최대 200자까지 허용됩니다.";
+    if (c.length < 10) errs.content = "내용은 최소 10자 이상 입력하세요.";
+    if (c.length > 10000) errs.content = "내용이 너무 깁니다.";
+    if (Object.keys(errs).length) {
+      setFieldErrors(errs);
+      setSaving(false);
+      return;
+    }
     try {
-      const body = { title, content, user_id: user?.id };
+      const body = { title: t, content: c };
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const token = (session as any)?.access_token;
       const res = await fetch("/api/posts", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),
       });
 
@@ -38,7 +60,7 @@ export default function NewPostPage() {
       if (createdId) router.push(`/posts/${createdId}`);
       else router.push("/posts");
     } catch (err) {
-      alert((err as any)?.message || "저장에 실패했습니다.");
+      setError((err as any)?.message || "저장에 실패했습니다.");
       setSaving(false);
     }
   };
@@ -59,6 +81,7 @@ export default function NewPostPage() {
             placeholder="제목을 입력하세요"
             required
           />
+          {fieldErrors.title && <p className="text-sm text-red-600 mt-1">{fieldErrors.title}</p>}
         </div>
 
         <div>
@@ -70,6 +93,7 @@ export default function NewPostPage() {
             placeholder="내용을 입력하세요"
             required
           />
+          {fieldErrors.content && <p className="text-sm text-red-600 mt-1">{fieldErrors.content}</p>}
         </div>
 
         <div className="flex items-center space-x-3">
@@ -88,6 +112,7 @@ export default function NewPostPage() {
             취소
           </button>
         </div>
+        {error && <p className="text-sm text-red-600">오류: {error}</p>}
       </form>
     </div>
   );

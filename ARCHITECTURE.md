@@ -45,9 +45,16 @@ Ch10 notes:
 - `app/layout.tsx` — Root layout (Header, Footer)
 - `components/Header.tsx` — Nav, search bar, auth buttons (shadcn Button, Input)
 - `components/PostCard.tsx` — Uses shadcn `Card` to display title, excerpt, meta, and action buttons
-- `app/posts/page.tsx` — Composes `PostCard` list; uses `Card` and `Button`
-- `app/posts/new/page.tsx` — Form using shadcn `Input`, `Textarea`, and `Button`
-- `components/ConfirmDialog.tsx` — shadcn `Dialog` used for destructive actions
+- `app/posts/page.tsx` — Server wrapper for `PostsClient`
+- `app/components/PostsClient.tsx` — 목록, 로딩/스켈레톤, `PostForm`(생성) 및 검색 등을 총괄
+- `app/components/PostForm.tsx` — 게시글 Create / Edit 양용 폼
+- `app/components/PostActions.tsx` — 상세 및 목록에서 작성자(author)에게만 보이는 수정/삭제 버튼 제공
+- `app/posts/[id]/page.tsx` — 포스트 상세 뷰 (Server Component)
+
+**인증별 경로 접근 전략**:
+- **공개 경로 (Public)**: `/`, `/posts`, `/posts/[id]`, `/login`, `/signup`
+- **인증 필요 경로 (Protected)**: `/posts/new`, API 데이터 변경(글 작성, 수정, 삭제)
+  - UI 상에서 작성 권한 여부를 체크하나, 실제적인 방어는 **Ch11에서의 RLS**에 의존함.
 
 Component usage notes:
 - Use `Card` for list items and author's card blocks.
